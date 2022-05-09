@@ -29,4 +29,26 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinRandomRoom();
     }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        LobbyName.text = null;
+        CreateRoom();
+    }
+
+    public void JoinRoom()
+    {
+        PhotonNetwork.JoinRoom(LobbyName.text);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        CreateRoom();
+    }
+
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("GameLobby");
+    }
+
 }
